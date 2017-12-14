@@ -26,11 +26,14 @@ workflows:
   version: 2
   pipeline:
     jobs:
+      - webpack-build
       - python-qa
-      - python-test
+      - python-test: # requires static files
+          requires: [webpack-build]
       - docker-build
       - js-qa
-      - js-test
+      - js-test: # reuse cache
+          requires: [webpack-build]
       - jpic:
           requires: [docker-build]
           filters:
@@ -84,6 +87,9 @@ jobs:
     - restore_cache:
         keys:
         - test-dependencies-{{ checksum "tox.ini" }}
+    - restore_cache:
+        keys:
+        - test-dependencies-{{ .Revision }}
     - run:
         name: npm environment setup
         command: 'sudo npm install -g npm@latest'
@@ -99,6 +105,30 @@ jobs:
     - run:
         name: run qa checks
         command: ~/.local/bin/tox -e py36-dj20
+
+  webpack-build:
+    docker:
+    - image: circleci/node:4.8.2
+    steps:
+    - run:
+        name: update-npm
+        command: 'sudo npm install -g npm@latest'
+    - restore_cache:
+        key: dependency-cache-{{ checksum "package.json" }}
+    - run:
+        name: install-npm-wee
+        command: npm install --dev
+    - save_cache:
+        key: dependency-cache-{{ checksum "package.json" }}
+        paths:
+          - ./node_modules
+    - save_cache:
+        key: dependency-cache-{{ .Revision }}
+        paths:
+          - ./node_modules
+    - run:
+        name: test
+        command: npm pack
 
   js-qa:
     docker:
