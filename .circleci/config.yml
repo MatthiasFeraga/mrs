@@ -89,7 +89,7 @@ jobs:
         - test-dependencies-{{ checksum "tox.ini" }}
     - restore_cache:
         keys:
-        - test-dependencies-{{ .Revision }}
+        - node-modules-{{ .Revision }}
     - run:
         name: npm environment setup
         command: 'sudo npm install -g npm@latest'
@@ -123,7 +123,7 @@ jobs:
         paths:
           - ./node_modules
     - save_cache:
-        key: dependency-cache-{{ .Revision }}
+        key: node-modules-{{ .Revision }}
         paths:
           - ./node_modules
     - run:
