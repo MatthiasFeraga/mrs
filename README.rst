@@ -23,7 +23,7 @@ Cloner le dépot, et puis dans le dossier du repo executer::
     npm install
 
     # Installer/mettre à jour code et librairies Python
-    pip install -U --user -e .
+    pip install -U --user -e .[django,debug]
 
     # Ajouter le pip user bin dans path, example:
     echo 'export PATH=$HOME/.local/bin:$PATH' > ~/.bashrc

@@ -3,3 +3,4 @@ django-material
 dj-static
 django-webpack-loader
 django-threadlocals
+crudlfap[tables2,filter]

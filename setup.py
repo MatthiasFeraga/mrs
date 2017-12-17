@@ -28,6 +28,10 @@ setup(
             'mrs = mrs.manage:main',
         ],
     },
+    extras_require=dict(
+        django=['django>=2.0'],
+        debug=['crudlfap[debug]'],
+    ),
     classifiers = [
         'Development Status :: 1 - Planning',
         'Environment :: Web Environment',

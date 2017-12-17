@@ -5,8 +5,10 @@ from django.urls import include, path, reverse_lazy
 
 urlpatterns = [
     path('', generic.RedirectView.as_view(
-        url=reverse_lazy('mrsrequest_create'))
+        url=reverse_lazy('mrsrequest_wizard'))
     ),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('crudlfap/', include('crudlfap.urls')),
     path('request/', include('mrsrequest.urls')),
     path('pmt/', include('pmt.urls')),
     path('transport/', include('transport.urls')),
