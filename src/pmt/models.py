@@ -27,8 +27,6 @@ class PMT(MRSAttachment):
         'mrsrequest.MRSRequest',
         on_delete=models.CASCADE,
     )
-    binary = models.BinaryField(
-        verbose_name='Prescription Médicale de Transport')
 
     objects = PMTManager()
 

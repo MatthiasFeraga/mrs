@@ -66,8 +66,6 @@ class Bill(MRSAttachment):
         'Transport',
         on_delete=models.CASCADE,
     )
-    binary = models.BinaryField(
-        verbose_name='Justificatif de Transport')
 
     objects = BillManager()
 

@@ -3,16 +3,16 @@ import io
 from django.db import models
 
 
+class MRSAttachmentField(models.BinaryField):
+    pass
+
+
 class MRSAttachment(models.Model):
     filename = models.CharField(max_length=255)
     creation_datetime = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Heure d\'enregistrement du fichier')
-    binary = models.BinaryField(
-        verbose_name='Prescription Médicale de Transport')
-
-    class Meta:
-        abstract = True
+    binary = MRSAttachmentField(verbose_name='Justificatif')
 
     @classmethod
     def get_upload_body(cls, upload):
